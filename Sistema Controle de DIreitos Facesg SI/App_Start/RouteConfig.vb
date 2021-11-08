@@ -1,0 +1,22 @@
+﻿Imports System
+Imports System.Collections.Generic
+Imports System.Linq
+Imports System.Web
+Imports System.Web.Mvc
+Imports System.Web.Routing
+
+Public Module RouteConfig
+    Public Sub RegisterRoutes(ByVal routes As RouteCollection)
+        routes.IgnoreRoute("{resource}.axd/{*pathInfo}")
+
+        routes.MapRoute(
+            name:="Default",
+            url:="{controller}/{action}/{id}",
+            defaults:=New With {.controller = "Home", .action = "Login", .id = UrlParameter.Optional}
+        )
+
+        'routes.MapPageRoute()
+
+
+    End Sub
+End Module

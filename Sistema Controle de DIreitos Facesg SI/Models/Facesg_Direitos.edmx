@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Facesg_DireitosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SCD_Direitos">
+          <Key>
+            <PropertyRef Name="NUM_Codigo" />
+          </Key>
+          <Property Name="NUM_Sistema" Type="int" Nullable="false" />
+          <Property Name="NUM_Empresa" Type="int" Nullable="false" />
+          <Property Name="NUM_Grupo" Type="bigint" Nullable="false" />
+          <Property Name="TXT_Menu" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="TXT_Menu_Pai" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="NUM_Ordernacao" Type="int" Nullable="false" />
+          <Property Name="BOL_Visualizar" Type="bit" Nullable="false" />
+          <Property Name="BOL_Consultar" Type="bit" Nullable="false" />
+          <Property Name="BOL_Inserir" Type="bit" Nullable="false" />
+          <Property Name="BOL_Alterar" Type="bit" Nullable="false" />
+          <Property Name="BOL_Remover" Type="bit" Nullable="false" />
+          <Property Name="NUM_Codigo" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SCD_Empresa">
+          <Key>
+            <PropertyRef Name="NUM_Empresa" />
+          </Key>
+          <Property Name="NUM_Empresa" Type="int" Nullable="false" />
+          <Property Name="TXT_Nome" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="DAT_Cancelamento" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SCD_Grupo">
+          <Key>
+            <PropertyRef Name="NUM_Grupo" />
+          </Key>
+          <Property Name="NUM_Grupo" Type="bigint" Nullable="false" />
+          <Property Name="TXT_Nome" Type="char" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SCD_Sistema">
+          <Key>
+            <PropertyRef Name="NUM_Sistema" />
+          </Key>
+          <Property Name="NUM_Sistema" Type="int" Nullable="false" />
+          <Property Name="TXT_Sigla" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="TXT_Nome" Type="char" MaxLength="70" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SCD_Usuario">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="TXT_Email" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="TXT_Senha" Type="char" MaxLength="255" Nullable="false" />
+          <Property Name="TXT_Nome" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="DAT_Cancelamento" Type="datetime" />
+          <Property Name="NUM_Empresa" Type="int" />
+          <Property Name="NUM_Grupo" Type="bigint" />
+          <Property Name="User_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SCD_Direitos_SCD_Empresa">
+          <End Role="SCD_Empresa" Type="Self.SCD_Empresa" Multiplicity="1" />
+          <End Role="SCD_Direitos" Type="Self.SCD_Direitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Empresa">
+              <PropertyRef Name="NUM_Empresa" />
+            </Principal>
+            <Dependent Role="SCD_Direitos">
+              <PropertyRef Name="NUM_Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCD_Direitos_SCD_Grupo">
+          <End Role="SCD_Grupo" Type="Self.SCD_Grupo" Multiplicity="1" />
+          <End Role="SCD_Direitos" Type="Self.SCD_Direitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Grupo">
+              <PropertyRef Name="NUM_Grupo" />
+            </Principal>
+            <Dependent Role="SCD_Direitos">
+              <PropertyRef Name="NUM_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCD_Direitos_SCD_Sistema">
+          <End Role="SCD_Sistema" Type="Self.SCD_Sistema" Multiplicity="1" />
+          <End Role="SCD_Direitos" Type="Self.SCD_Direitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Sistema">
+              <PropertyRef Name="NUM_Sistema" />
+            </Principal>
+            <Dependent Role="SCD_Direitos">
+              <PropertyRef Name="NUM_Sistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCD_Usuario_SCD_Empresa">
+          <End Role="SCD_Empresa" Type="Self.SCD_Empresa" Multiplicity="0..1" />
+          <End Role="SCD_Usuario" Type="Self.SCD_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Empresa">
+              <PropertyRef Name="NUM_Empresa" />
+            </Principal>
+            <Dependent Role="SCD_Usuario">
+              <PropertyRef Name="NUM_Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCD_Usuario_SCD_Grupo">
+          <End Role="SCD_Grupo" Type="Self.SCD_Grupo" Multiplicity="0..1" />
+          <End Role="SCD_Usuario" Type="Self.SCD_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Grupo">
+              <PropertyRef Name="NUM_Grupo" />
+            </Principal>
+            <Dependent Role="SCD_Usuario">
+              <PropertyRef Name="NUM_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Facesg_DireitosModelStoreContainer">
+          <EntitySet Name="SCD_Direitos" EntityType="Self.SCD_Direitos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCD_Empresa" EntityType="Self.SCD_Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCD_Grupo" EntityType="Self.SCD_Grupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCD_Sistema" EntityType="Self.SCD_Sistema" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SCD_Usuario" EntityType="Self.SCD_Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SCD_Direitos_SCD_Empresa" Association="Self.FK_SCD_Direitos_SCD_Empresa">
+            <End Role="SCD_Empresa" EntitySet="SCD_Empresa" />
+            <End Role="SCD_Direitos" EntitySet="SCD_Direitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCD_Direitos_SCD_Grupo" Association="Self.FK_SCD_Direitos_SCD_Grupo">
+            <End Role="SCD_Grupo" EntitySet="SCD_Grupo" />
+            <End Role="SCD_Direitos" EntitySet="SCD_Direitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCD_Direitos_SCD_Sistema" Association="Self.FK_SCD_Direitos_SCD_Sistema">
+            <End Role="SCD_Sistema" EntitySet="SCD_Sistema" />
+            <End Role="SCD_Direitos" EntitySet="SCD_Direitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCD_Usuario_SCD_Empresa" Association="Self.FK_SCD_Usuario_SCD_Empresa">
+            <End Role="SCD_Empresa" EntitySet="SCD_Empresa" />
+            <End Role="SCD_Usuario" EntitySet="SCD_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCD_Usuario_SCD_Grupo" Association="Self.FK_SCD_Usuario_SCD_Grupo">
+            <End Role="SCD_Grupo" EntitySet="SCD_Grupo" />
+            <End Role="SCD_Usuario" EntitySet="SCD_Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Facesg_DireitosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="SCD_Direitos">
+          <Key>
+            <PropertyRef Name="NUM_Codigo" />
+          </Key>
+          <Property Name="NUM_Sistema" Type="Int32" Nullable="false" />
+          <Property Name="NUM_Empresa" Type="Int32" Nullable="false" />
+          <Property Name="NUM_Grupo" Type="Int64" Nullable="false" />
+          <Property Name="TXT_Menu" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TXT_Menu_Pai" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="NUM_Ordernacao" Type="Int32" Nullable="false" />
+          <Property Name="BOL_Visualizar" Type="Boolean" Nullable="false" />
+          <Property Name="BOL_Consultar" Type="Boolean" Nullable="false" />
+          <Property Name="BOL_Inserir" Type="Boolean" Nullable="false" />
+          <Property Name="BOL_Alterar" Type="Boolean" Nullable="false" />
+          <Property Name="BOL_Remover" Type="Boolean" Nullable="false" />
+          <Property Name="NUM_Codigo" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="SCD_Empresa" Relationship="Self.FK_SCD_Direitos_SCD_Empresa" FromRole="SCD_Direitos" ToRole="SCD_Empresa" />
+          <NavigationProperty Name="SCD_Grupo" Relationship="Self.FK_SCD_Direitos_SCD_Grupo" FromRole="SCD_Direitos" ToRole="SCD_Grupo" />
+          <NavigationProperty Name="SCD_Sistema" Relationship="Self.FK_SCD_Direitos_SCD_Sistema" FromRole="SCD_Direitos" ToRole="SCD_Sistema" />
+        </EntityType>
+        <EntityType Name="SCD_Empresa">
+          <Key>
+            <PropertyRef Name="NUM_Empresa" />
+          </Key>
+          <Property Name="NUM_Empresa" Type="Int32" Nullable="false" />
+          <Property Name="TXT_Nome" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DAT_Cancelamento" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SCD_Direitos" Relationship="Self.FK_SCD_Direitos_SCD_Empresa" FromRole="SCD_Empresa" ToRole="SCD_Direitos" />
+          <NavigationProperty Name="SCD_Usuario" Relationship="Self.FK_SCD_Usuario_SCD_Empresa" FromRole="SCD_Empresa" ToRole="SCD_Usuario" />
+        </EntityType>
+        <EntityType Name="SCD_Grupo">
+          <Key>
+            <PropertyRef Name="NUM_Grupo" />
+          </Key>
+          <Property Name="NUM_Grupo" Type="Int64" Nullable="false" />
+          <Property Name="TXT_Nome" Type="String" MaxLength="40" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SCD_Direitos" Relationship="Self.FK_SCD_Direitos_SCD_Grupo" FromRole="SCD_Grupo" ToRole="SCD_Direitos" />
+          <NavigationProperty Name="SCD_Usuario" Relationship="Self.FK_SCD_Usuario_SCD_Grupo" FromRole="SCD_Grupo" ToRole="SCD_Usuario" />
+        </EntityType>
+        <EntityType Name="SCD_Sistema">
+          <Key>
+            <PropertyRef Name="NUM_Sistema" />
+          </Key>
+          <Property Name="NUM_Sistema" Type="Int32" Nullable="false" />
+          <Property Name="TXT_Sigla" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TXT_Nome" Type="String" MaxLength="70" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="SCD_Direitos" Relationship="Self.FK_SCD_Direitos_SCD_Sistema" FromRole="SCD_Sistema" ToRole="SCD_Direitos" />
+        </EntityType>
+        <EntityType Name="SCD_Usuario">
+          <Key>
+            <PropertyRef Name="User_id" />
+          </Key>
+          <Property Name="TXT_Email" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TXT_Senha" Type="String" MaxLength="255" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TXT_Nome" Type="String" MaxLength="100" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DAT_Cancelamento" Type="DateTime" Precision="3" />
+          <Property Name="NUM_Empresa" Type="Int32" />
+          <Property Name="NUM_Grupo" Type="Int64" />
+          <NavigationProperty Name="SCD_Empresa" Relationship="Self.FK_SCD_Usuario_SCD_Empresa" FromRole="SCD_Usuario" ToRole="SCD_Empresa" />
+          <NavigationProperty Name="SCD_Grupo" Relationship="Self.FK_SCD_Usuario_SCD_Grupo" FromRole="SCD_Usuario" ToRole="SCD_Grupo" />
+          <Property Name="User_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK_SCD_Direitos_SCD_Empresa">
+          <End Role="SCD_Empresa" Type="Self.SCD_Empresa" Multiplicity="1" />
+          <End Role="SCD_Direitos" Type="Self.SCD_Direitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Empresa">
+              <PropertyRef Name="NUM_Empresa" />
+            </Principal>
+            <Dependent Role="SCD_Direitos">
+              <PropertyRef Name="NUM_Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCD_Direitos_SCD_Grupo">
+          <End Role="SCD_Grupo" Type="Self.SCD_Grupo" Multiplicity="1" />
+          <End Role="SCD_Direitos" Type="Self.SCD_Direitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Grupo">
+              <PropertyRef Name="NUM_Grupo" />
+            </Principal>
+            <Dependent Role="SCD_Direitos">
+              <PropertyRef Name="NUM_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCD_Direitos_SCD_Sistema">
+          <End Role="SCD_Sistema" Type="Self.SCD_Sistema" Multiplicity="1" />
+          <End Role="SCD_Direitos" Type="Self.SCD_Direitos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Sistema">
+              <PropertyRef Name="NUM_Sistema" />
+            </Principal>
+            <Dependent Role="SCD_Direitos">
+              <PropertyRef Name="NUM_Sistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCD_Usuario_SCD_Empresa">
+          <End Role="SCD_Empresa" Type="Self.SCD_Empresa" Multiplicity="0..1" />
+          <End Role="SCD_Usuario" Type="Self.SCD_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Empresa">
+              <PropertyRef Name="NUM_Empresa" />
+            </Principal>
+            <Dependent Role="SCD_Usuario">
+              <PropertyRef Name="NUM_Empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCD_Usuario_SCD_Grupo">
+          <End Role="SCD_Grupo" Type="Self.SCD_Grupo" Multiplicity="0..1" />
+          <End Role="SCD_Usuario" Type="Self.SCD_Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SCD_Grupo">
+              <PropertyRef Name="NUM_Grupo" />
+            </Principal>
+            <Dependent Role="SCD_Usuario">
+              <PropertyRef Name="NUM_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Facesg_DireitosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SCD_Direitos" EntityType="Self.SCD_Direitos" />
+          <EntitySet Name="SCD_Empresa" EntityType="Self.SCD_Empresa" />
+          <EntitySet Name="SCD_Grupo" EntityType="Self.SCD_Grupo" />
+          <EntitySet Name="SCD_Sistema" EntityType="Self.SCD_Sistema" />
+          <EntitySet Name="SCD_Usuario" EntityType="Self.SCD_Usuario" />
+          <AssociationSet Name="FK_SCD_Direitos_SCD_Empresa" Association="Self.FK_SCD_Direitos_SCD_Empresa">
+            <End Role="SCD_Empresa" EntitySet="SCD_Empresa" />
+            <End Role="SCD_Direitos" EntitySet="SCD_Direitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCD_Direitos_SCD_Grupo" Association="Self.FK_SCD_Direitos_SCD_Grupo">
+            <End Role="SCD_Grupo" EntitySet="SCD_Grupo" />
+            <End Role="SCD_Direitos" EntitySet="SCD_Direitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCD_Direitos_SCD_Sistema" Association="Self.FK_SCD_Direitos_SCD_Sistema">
+            <End Role="SCD_Sistema" EntitySet="SCD_Sistema" />
+            <End Role="SCD_Direitos" EntitySet="SCD_Direitos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCD_Usuario_SCD_Empresa" Association="Self.FK_SCD_Usuario_SCD_Empresa">
+            <End Role="SCD_Empresa" EntitySet="SCD_Empresa" />
+            <End Role="SCD_Usuario" EntitySet="SCD_Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCD_Usuario_SCD_Grupo" Association="Self.FK_SCD_Usuario_SCD_Grupo">
+            <End Role="SCD_Grupo" EntitySet="SCD_Grupo" />
+            <End Role="SCD_Usuario" EntitySet="SCD_Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Facesg_DireitosModelStoreContainer" CdmEntityContainer="Facesg_DireitosEntities">
+          <EntitySetMapping Name="SCD_Direitos">
+            <EntityTypeMapping TypeName="Facesg_DireitosModel.SCD_Direitos">
+              <MappingFragment StoreEntitySet="SCD_Direitos">
+                <ScalarProperty Name="NUM_Sistema" ColumnName="NUM_Sistema" />
+                <ScalarProperty Name="NUM_Empresa" ColumnName="NUM_Empresa" />
+                <ScalarProperty Name="NUM_Grupo" ColumnName="NUM_Grupo" />
+                <ScalarProperty Name="TXT_Menu" ColumnName="TXT_Menu" />
+                <ScalarProperty Name="TXT_Menu_Pai" ColumnName="TXT_Menu_Pai" />
+                <ScalarProperty Name="NUM_Ordernacao" ColumnName="NUM_Ordernacao" />
+                <ScalarProperty Name="BOL_Visualizar" ColumnName="BOL_Visualizar" />
+                <ScalarProperty Name="BOL_Consultar" ColumnName="BOL_Consultar" />
+                <ScalarProperty Name="BOL_Inserir" ColumnName="BOL_Inserir" />
+                <ScalarProperty Name="BOL_Alterar" ColumnName="BOL_Alterar" />
+                <ScalarProperty Name="BOL_Remover" ColumnName="BOL_Remover" />
+                <ScalarProperty Name="NUM_Codigo" ColumnName="NUM_Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCD_Empresa">
+            <EntityTypeMapping TypeName="Facesg_DireitosModel.SCD_Empresa">
+              <MappingFragment StoreEntitySet="SCD_Empresa">
+                <ScalarProperty Name="NUM_Empresa" ColumnName="NUM_Empresa" />
+                <ScalarProperty Name="TXT_Nome" ColumnName="TXT_Nome" />
+                <ScalarProperty Name="DAT_Cancelamento" ColumnName="DAT_Cancelamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCD_Grupo">
+            <EntityTypeMapping TypeName="Facesg_DireitosModel.SCD_Grupo">
+              <MappingFragment StoreEntitySet="SCD_Grupo">
+                <ScalarProperty Name="NUM_Grupo" ColumnName="NUM_Grupo" />
+                <ScalarProperty Name="TXT_Nome" ColumnName="TXT_Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCD_Sistema">
+            <EntityTypeMapping TypeName="Facesg_DireitosModel.SCD_Sistema">
+              <MappingFragment StoreEntitySet="SCD_Sistema">
+                <ScalarProperty Name="NUM_Sistema" ColumnName="NUM_Sistema" />
+                <ScalarProperty Name="TXT_Sigla" ColumnName="TXT_Sigla" />
+                <ScalarProperty Name="TXT_Nome" ColumnName="TXT_Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SCD_Usuario">
+            <EntityTypeMapping TypeName="Facesg_DireitosModel.SCD_Usuario">
+              <MappingFragment StoreEntitySet="SCD_Usuario">
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="TXT_Email" ColumnName="TXT_Email" />
+                <ScalarProperty Name="TXT_Senha" ColumnName="TXT_Senha" />
+                <ScalarProperty Name="TXT_Nome" ColumnName="TXT_Nome" />
+                <ScalarProperty Name="DAT_Cancelamento" ColumnName="DAT_Cancelamento" />
+                <ScalarProperty Name="NUM_Empresa" ColumnName="NUM_Empresa" />
+                <ScalarProperty Name="NUM_Grupo" ColumnName="NUM_Grupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
