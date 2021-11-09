@@ -36,9 +36,6 @@ Public Class HomeController
         Usuario.TXT_Email = model.TXT_EMAIL
         Usuario.TXT_Senha = model.TXT_SENHA
 
-        'ResetSenha("bruno_sv07@hotmail.com")
-
-
         Dim qyou As IList(Of SCD_Usuario)
 
 
